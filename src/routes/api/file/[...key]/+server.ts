@@ -26,14 +26,16 @@ export const GET: RequestHandler = async ({ params, locals, platform }) => {
 		return new Response('Not found', { status: 404 });
 	}
 
-	const cacheControl = memo.isPublished
-		? 'public, max-age=31536000, immutable'
-		: 'private, no-store';
+	// 公開→非公開の切り替え直後でも古い公開レスポンスを使わせないため、
+	// 常に no-store で返して毎回認可チェックを通す
+	const cacheControl = 'no-store, no-cache, must-revalidate, max-age=0';
 
 	return new Response(object.body, {
 		headers: {
 			'Content-Type': fileRecord.contentType,
 			'Cache-Control': cacheControl,
+			Pragma: 'no-cache',
+			Expires: '0',
 			'X-Content-Type-Options': 'nosniff'
 		}
 	});
