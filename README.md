@@ -1,42 +1,87 @@
-# sv
+https://memo.reesuke.com/view/introduction
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+# メモアプリ
 
-## Creating a project
+メモアプリは、**思いついたことをすぐに記録し、あとで見返しやすく整理できる Web アプリ**です。  
+テキストだけでなく画像やファイルも扱え、必要に応じてメモを公開 URL で共有できます。
 
-If you're seeing this, you've probably already done this step. Congrats!
+## このアプリの特徴
+
+- **ユーザーごとのメモ管理**  
+  アカウント登録・ログイン後、メモはユーザー単位で分離して管理されます。
+- **リッチテキストエディタ**  
+  見出し、箇条書き、コードブロック、引用、リンクなどを使ってメモを構造化できます。
+- **スラッシュコマンド**  
+  エディタで `/` を入力するとコマンドメニューが開き、書式変更や画像/ファイル挿入を素早く実行できます。
+- **画像・ファイル添付**  
+  アップロード、ドラッグ&ドロップ、画像のペーストに対応。添付ファイルは Cloudflare R2 に保存されます。
+- **公開/非公開の切り替え**  
+  メモごとに公開状態を切り替え可能。公開時は `/view/...` の URL で閲覧できます。
+- **スラッグ対応の共有 URL**  
+  `memo_id` だけでなく任意のスラッグを設定して、分かりやすい公開 URL を作成できます。
+- **基本的なセキュリティ対策**  
+  セッション Cookie 認証、保護ルート制御、ログイン試行の簡易レート制限を実装しています。
+
+## 技術スタック
+
+- **Frontend**: SvelteKit, Svelte 5, TipTap
+- **Backend**: SvelteKit Server Routes (Cloudflare Workers)
+- **Database**: Cloudflare D1 + Drizzle ORM
+- **Storage**: Cloudflare R2
+- **Deploy**: Wrangler
+
+## セットアップ
+
+### 前提
+
+- Node.js
+- npm
+- Cloudflare アカウント
+- Wrangler CLI（`npm` スクリプト経由で実行）
+
+### 1. 依存関係インストールとローカル DB マイグレーション
 
 ```sh
-# create a new project
-npx sv create my-app
+npm run setup
 ```
 
-To recreate this project with the same configuration:
+### 2. 環境変数（AUTH_SECRET）の設定
 
-```sh
-# recreate this project
-npx sv@0.12.7 create --template minimal --types ts --no-install memo-app
-```
+セッション署名に使用する `AUTH_SECRET` を設定してください。
 
-## Developing
+- ローカル開発: `.dev.vars` に `AUTH_SECRET=your-secret`
+- リモート環境: `wrangler secret put AUTH_SECRET`
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+## 開発
 
 ```sh
 npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
 ```
 
-## Building
-
-To create a production version of your app:
+## ビルド
 
 ```sh
 npm run build
 ```
 
-You can preview the production build with `npm run preview`.
+## デプロイ
 
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+```sh
+npm run deploy
+```
+
+## DB 操作コマンド
+
+```sh
+# ローカル D1 にマイグレーション適用
+npm run db:migrate:local
+
+# リモート D1 にマイグレーション適用
+npm run db:migrate:remote
+
+# D1 Studio（ローカル）
+npm run db:studio:local
+
+# D1 Studio（リモート）
+npm run db:studio:remote
+```
