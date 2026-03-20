@@ -1,0 +1,47 @@
+{
+	"name": "memo-app",
+	"private": true,
+	"version": "0.0.1",
+	"type": "module",
+	"scripts": {
+		"dev": "wrangler dev",
+		"build": "vite build",
+		"preview": "vite preview",
+		"prepare": "svelte-kit sync || echo ''",
+		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+		"setup": "npm install && npm run db:migrate:local",
+		"deploy": "npm run build && wrangler deploy",
+		"db:migrate:local": "wrangler d1 execute memo-app-db --local --file=drizzle/0000_initial.sql && wrangler d1 execute memo-app-db --local --file=drizzle/0001_add_slug.sql",
+		"db:migrate:remote": "wrangler d1 execute memo-app-db --remote --file=drizzle/0000_initial.sql && wrangler d1 execute memo-app-db --remote --file=drizzle/0001_add_slug.sql",
+		"db:studio:local": "wrangler d1 studio memo-app-db --local",
+		"db:studio:remote": "wrangler d1 studio memo-app-db"
+	},
+	"devDependencies": {
+		"@cloudflare/workers-types": "^4.20260313.1",
+		"@sveltejs/adapter-auto": "^7.0.0",
+		"@sveltejs/kit": "^2.50.2",
+		"@sveltejs/vite-plugin-svelte": "^6.2.4",
+		"drizzle-kit": "^0.31.9",
+		"svelte": "^5.51.0",
+		"svelte-check": "^4.4.2",
+		"typescript": "^5.9.3",
+		"vite": "^7.3.1",
+		"wrangler": "^4.73.0"
+	},
+	"dependencies": {
+		"@auth/core": "^0.41.1",
+		"@auth/sveltekit": "^1.11.1",
+		"@sveltejs/adapter-cloudflare": "^7.2.8",
+		"@tiptap/core": "^3.20.1",
+		"@tiptap/extension-bubble-menu": "^3.20.1",
+		"@tiptap/extension-floating-menu": "^3.20.1",
+		"@tiptap/extension-image": "^3.20.1",
+		"@tiptap/extension-link": "^3.20.1",
+		"@tiptap/extension-placeholder": "^3.20.1",
+		"@tiptap/pm": "^3.20.1",
+		"@tiptap/starter-kit": "^3.20.1",
+		"@tiptap/suggestion": "^3.20.1",
+		"drizzle-orm": "^0.45.1"
+	}
+}

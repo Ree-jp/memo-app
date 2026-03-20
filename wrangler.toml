@@ -1,0 +1,20 @@
+name = "memo-app"
+compatibility_date = "2024-12-01"
+compatibility_flags = ["nodejs_compat"]
+main = ".svelte-kit/cloudflare/_worker.js"
+
+[assets]
+directory = ".svelte-kit/cloudflare"
+binding = "ASSETS"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "memo-app-db"
+database_id = "92b3e0e8-a119-4b64-bd26-18301644196b"
+
+[[r2_buckets]]
+binding = "STORAGE"
+bucket_name = "memo-app-storage"
+
+[vars]
+AUTH_TRUST_HOST = "true"

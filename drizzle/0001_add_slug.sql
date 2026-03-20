@@ -1,0 +1,2 @@
+ALTER TABLE memo ADD COLUMN slug TEXT;
+CREATE UNIQUE INDEX IF NOT EXISTS idx_memo_slug ON memo(slug);
