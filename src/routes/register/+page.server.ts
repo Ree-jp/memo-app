@@ -24,6 +24,10 @@ export const actions: Actions = {
 			return fail(400, { error: 'パスワードは6文字以上で入力してください' });
 		}
 
+		if (username.toLowerCase() === platform!.env.DEMO_USERNAME?.toLowerCase()) {
+			return fail(400, { error: 'このユーザー名は使用できません' });
+		}
+
 		const db = drizzle(platform!.env.DB);
 
 		const existing = await db.select().from(users).where(eq(users.username, username)).limit(1);

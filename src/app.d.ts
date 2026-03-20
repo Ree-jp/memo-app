@@ -10,6 +10,8 @@ declare global {
 				DB: D1Database;
 				STORAGE: R2Bucket;
 				AUTH_SECRET: string;
+				DEMO_USERNAME: string;
+				DEMO_PASSWORD: string;
 			};
 		}
 	}

@@ -27,6 +27,16 @@
 			<button class="btn-primary w-full" type="submit">ログイン</button>
 		</form>
 		<a href="/register">アカウント登録はこちらから</a>
+
+		<div class="demo-section">
+			<div class="divider"><span>または</span></div>
+			<form method="POST" use:enhance>
+				<input type="hidden" name="username" value="demo" />
+				<input type="hidden" name="password" value="demo" />
+				<button class="btn-demo w-full" type="submit">デモアカウントで試す</button>
+			</form>
+			<p class="demo-note">※ デモデータは毎週リセットされます</p>
+		</div>
 	</div>
 </div>
 
@@ -67,5 +77,43 @@
 	}
 	a:hover {
 		text-decoration: underline;
+	}
+	.demo-section {
+		margin-top: 24px;
+	}
+	.divider {
+		display: flex;
+		align-items: center;
+		margin-bottom: 16px;
+		color: #999;
+		font-size: 13px;
+	}
+	.divider::before,
+	.divider::after {
+		content: '';
+		flex: 1;
+		border-bottom: 1px solid #ddd;
+	}
+	.divider span {
+		padding: 0 12px;
+	}
+	.btn-demo {
+		padding: 8px 16px;
+		border: 1px solid #ccc;
+		border-radius: 6px;
+		background: #f5f5f5;
+		color: #555;
+		font-size: 14px;
+		cursor: pointer;
+		transition: background 0.15s;
+	}
+	.btn-demo:hover {
+		background: #e8e8e8;
+	}
+	.demo-note {
+		margin-top: 8px;
+		font-size: 12px;
+		color: #999;
+		text-align: center;
 	}
 </style>

@@ -16,5 +16,10 @@ database_id = "92b3e0e8-a119-4b64-bd26-18301644196b"
 binding = "STORAGE"
 bucket_name = "memo-app-storage"
 
+[triggers]
+crons = ["0 0 * * 1"]  # Every Monday at 00:00 UTC
+
 [vars]
 AUTH_TRUST_HOST = "true"
+DEMO_USERNAME = "demo"
+DEMO_PASSWORD = "demo"

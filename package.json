@@ -11,7 +11,7 @@
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"setup": "npm install && npm run db:migrate:local",
-		"deploy": "npm run build && wrangler deploy",
+		"deploy": "npm run build && node scripts/patch-worker.js && wrangler deploy",
 		"db:migrate:local": "wrangler d1 execute memo-app-db --local --file=drizzle/0000_initial.sql && wrangler d1 execute memo-app-db --local --file=drizzle/0001_add_slug.sql",
 		"db:migrate:remote": "wrangler d1 execute memo-app-db --remote --file=drizzle/0000_initial.sql && wrangler d1 execute memo-app-db --remote --file=drizzle/0001_add_slug.sql",
 		"db:studio:local": "wrangler d1 studio memo-app-db --local",

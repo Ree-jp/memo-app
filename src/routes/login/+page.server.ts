@@ -10,6 +10,7 @@ import {
 	registerLoginFailure,
 	clearLoginFailures
 } from '$lib/server/login-rate-limit';
+import { ensureDemoAccount } from '$lib/server/demo';
 
 export const actions: Actions = {
 	default: async ({ request, cookies, platform, getClientAddress }) => {
